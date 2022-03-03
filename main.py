@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-
+# pydantic é utilizado como validador de dados, já que a classe criada o herda 
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -23,12 +23,12 @@ base_de_dados = [
 
 # Rota Get All
 @app.get("/usuarios")
-def get_todos_os_usuarios():
+async def get_todos_os_usuarios():
     return base_de_dados
 
 # Rota Get Id
 @app.get("/usuarios/{id_usuario}")
-def get_usuario_usando_id(id_usuario: int):
+async def get_usuario_usando_id(id_usuario: int):
     for usuario in base_de_dados:
         if(usuario.id == id_usuario):
             return usuario
@@ -37,7 +37,7 @@ def get_usuario_usando_id(id_usuario: int):
 
 # Rota Insere
 @app.post("/usuarios")
-def insere_usuario(usuario: Usuario):
+async def insere_usuario(usuario: Usuario):
     #criar regras de negocio
     base_de_dados.append(usuario)
     return usuario
